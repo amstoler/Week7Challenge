@@ -1,9 +1,15 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RootObject {
     private String status;
+
+    public RootObject() {
+    }
 
     public String getStatus() { return this.status; }
 

@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.AppUser;
+import com.example.demo.Model.Article;
 import com.example.demo.Repositories.AppRoleRepository;
 import com.example.demo.Repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -54,15 +53,28 @@ public class HomeController {
         return "redirect:/";
     }
 
-      /*@GetMapping("/addItem")
+    @Controller
+    public class HomeController {
+        @RequestMapping("/")
+        public @ResponseBody String showIndex(){
+            RestTemplate restTemplate = new RestTemplate();
+
+            Article article = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random",Quote.class);
+// Matched below example
+            return article.getRootObject().getArticles();
+        }
+    }
+
+
+      /*@GetMapping("/addNewsItem")
     public String showItemForm(Model model) {
         model.addAttribute("item", new Item());
 
-        return "itemForm2";
+        return "newsform";
 
     }
 
-    @PostMapping("/processItem")
+    @PostMapping("/processNewsItem")
     public String lostitems(@Valid @ModelAttribute("item") Item item, Model model, BindingResult result, Authentication auth) {
         if (result.hasErrors()) {
             return "itemForm2";
