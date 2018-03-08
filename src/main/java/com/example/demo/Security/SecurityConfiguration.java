@@ -1,7 +1,7 @@
 package com.example.demo.Security;
 
 
-import lostandfound.demo.Repositories.AppUserRepository;
+import com.example.demo.Repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -28,8 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/register","/displayItems", "/lostitmes", "/css/**","/js/**","/img/**").permitAll()
-                .antMatchers("/founditems","/addItem").hasAnyAuthority("USER","ADMIN")
+                .antMatchers("/", "/home", "/register","/css/**","/js/**","/img/**").permitAll()
+                .antMatchers().hasAnyAuthority("USER","ADMIN")
                 //.antMatchers("/references","/profile").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()

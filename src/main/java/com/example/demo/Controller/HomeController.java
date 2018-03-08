@@ -30,14 +30,14 @@ public class HomeController {
     @PostMapping("/login")
     public String login()
     {
-        return "/login2";
+        return "/login";
     }
 
     @GetMapping("/register")
     public String registerUser(Model model)
     {
         model.addAttribute("newuser",new AppUser());
-        return "register2";
+        return "register";
     }
 
     @PostMapping("/register")
@@ -45,7 +45,7 @@ public class HomeController {
     {
         if(result.hasErrors())
         {
-            return "register2";
+            return "register";
         }
 
         appUser.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
