@@ -10,7 +10,7 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String newsName;
+    private String topic;
     @ManyToMany(mappedBy = "profiles")
     private Collection<AppUser> appusers;
     private String category;
@@ -20,7 +20,7 @@ public class Profile {
     }
 
     public Profile(String newsName) {
-        this.newsName = newsName;
+        this.topic = topic;
         this.category = category;
         this.appusers = new HashSet<>();
     }
@@ -33,12 +33,12 @@ public class Profile {
         this.id = id;
     }
 
-    public String getNewsName() {
-        return newsName;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setNewsName(String newsName) {
-        this.newsName = newsName;
+    public void setTopic(String newsName) {
+        this.topic = newsName;
     }
 
     public String getCategory() {

@@ -30,21 +30,21 @@ public class HomeController {
 //        return "index";
 //    }
 
-    @PostMapping("/login")
+   /* @PostMapping("/login")
     public String login() {
         return "/login";
-    }
+    }*/
 
     @GetMapping("/register")
     public String registerUser(Model model) {
         model.addAttribute("newuser", new AppUser());
-        return "register";
+        return "register2";
     }
 
     @PostMapping("/register")
     public String saveUser(@Valid @ModelAttribute("newuser") AppUser appUser, BindingResult result, HttpServletRequest request) {
         if (result.hasErrors()) {
-            return "register";
+            return "register2";
         }
 
         appUser.addRole(appRoleRepository.findAppRoleByRoleName("USER"));
@@ -114,7 +114,7 @@ public class HomeController {
         newsObject = restTemplate.getForObject("https://newsapi.org/v2/top-headlines?country=us&category="+category+"&apiKey=9e829714c9984782a328e0d01885d95b", NewsObject.class);
         model.addAttribute("article",newsObject.getArticles());
 
-        return "display";
+        return "display2";
     }
     @RequestMapping("/")
     public String Headlines( @Valid @ModelAttribute("newsApi") NewsObject newsObject, Model model){
@@ -125,9 +125,27 @@ public class HomeController {
         return "index";
     }
 
+    /*TESTING CODE*/
+    //************************************************************************************
+    @GetMapping("/findtopics")
+    public String findtopics(Model model){
+        model.addAttribute("personalnews",new Profile());
+        return "findtopics";
 
+    }
 
-  //  https://newsapi.org/v2/top-headlines?country=us&apiKey=9e829714c9984782a328e0d01885d95b
+    @PostMapping("/processtopics")
+    public String findtopics(HttpServletRequest request,NewsObject newsObject, Model model){
+        String topic = request.getParameter("topic");
+        RestTemplate restTemplate = new RestTemplate();
+        newsObject= restTemplate.getForObject("https://newsapi.org/v2/everything?q="+topic+"&apiKey=9e829714c9984782a328e0d01885d95b", NewsObject.class);
+        model.addAttribute("article",newsObject.getArticles());
+
+        return "display2";
+    }
+    //***********************************************************************************
+    /*End test*/
+
 
 
 }
