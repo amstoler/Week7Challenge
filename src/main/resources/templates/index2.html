@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+
+</head>
+<body>
+
+<div class="app" ng-app="app" ng-controller="ctrl">
+    <header>
+        <h1>News Feed</h1>
+    </header>
+    <div th:each="item : ${newsitem}">
+
+    <div class="news-categories" ng-init="newsCategory = &quot;business&quot;">
+        <div class="news-category {{category}}" ng-repeat="category in categories" ng-click="$parent.newsCategory = category; getSources()"><i class="ion ion-checkmark" ng-show="$parent.newsCategory == category"></i><span>{{ category == "science-and-nature" ? "science" : category }}</span></div>
+    </div>
+    <div class="news-sources">
+        <div class="news-source" ng-repeat="source in sources" ng-click="$parent.newsSource = source.id; getArticles()" style="background-image: url({{ source.urlsToLogos.large }});"><i class="ion ion-checkmark" ng-show="$parent.newsSource == source.id"></i></div>
+    </div>
+    <main class="news-feed"><a class="news-feed__article" ng-repeat="article in articles" href="{{ article.url }}">
+        <h3 class="news-feed__article__title">{{ article.title }}</h3><img class="news-feed__article__image" src="{{ article.urlToImage }}"/>
+        <p class="news-feed__article__description">{{ article.description }}</p><small class="news-feed__article__author">{{ article.author }}</small></a></main>
+</div>
+
+
+
+</body>
+</html>

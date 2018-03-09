@@ -55,16 +55,52 @@ public class HomeController {
     }
 
 
-        @RequestMapping("/test")
-        public String showIndex(Model model){
+        @RequestMapping("/business")
+        public String showbusiness(Model model){
         RestTemplate restTemplate = new RestTemplate();
 
             NewsObject newsObject = restTemplate.getForObject(
                     "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9e829714c9984782a328e0d01885d95b",NewsObject.class);
-// Matched below example
+
             model.addAttribute("newsitem", newsObject.getArticles());
             return "index";
 }
+    @RequestMapping("/sports")
+    public String showsports(Model model){
+        RestTemplate restTemplate = new RestTemplate();
+
+        NewsObject newsObject = restTemplate.getForObject(
+                "https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=9e829714c9984782a328e0d01885d95b",NewsObject.class);
+
+        model.addAttribute("newsitem", newsObject.getArticles());
+        return "index";
+    }
+
+
+    @RequestMapping("/entertainment")
+    public String showentertainment(Model model) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        NewsObject newsObject = restTemplate.getForObject(
+                "https://newsapi.org/v2/top-headlines?country=us&category=entertainment&apiKey=9e829714c9984782a328e0d01885d95b", NewsObject.class);
+
+        model.addAttribute("newsitem", newsObject.getArticles());
+        return "index";
+
+    }
+
+    @RequestMapping("/science")
+    public String showIncategory(Model model) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        NewsObject newsObject = restTemplate.getForObject(
+                "https://newsapi.org/v2/top-headlines?country=us&category=science&apiKey=9e829714c9984782a328e0d01885d95b", NewsObject.class);
+
+        model.addAttribute("newsitem", newsObject.getArticles());
+        return "index";
+
+    }
+
     }
 
 
