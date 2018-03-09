@@ -47,8 +47,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-sm-6">
+              <!--  ***************************************************************8-->
+                    <h2>News List</h2>
+
+                    <div th:each="item : ${newsitem}">
 
 
+                        <!--<img th:src="${book.image}"/>-->
+                        <span th:inline="text"> author: [[${item.author}]] </span><br/>
+                        <span th:inline="text"> title: [[${item.title}]] </span><br/>
+                        <span th:inline="text"> description: [[${item.description}]] </span><br/>
+                        <span th:inline="text"> url: [[${item.url}]] </span><br/>
+                        <span> <img th:src="${item.urlToImage}" width="200" heigh="200"> </span>><br/>
+                        <span th:inline="text"> publishedAt: [[${item.publishedAt}]] </span>
+
+                    </div>
+                    <!--  ***************************************************************8-->
                 </div>
 
             </div>

@@ -56,14 +56,15 @@ public class HomeController {
 
 
         @RequestMapping("/test")
-        public @ResponseBody String showIndex(){
+        public String showIndex(Model model){
         RestTemplate restTemplate = new RestTemplate();
 
             NewsObject newsObject = restTemplate.getForObject(
                     "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9e829714c9984782a328e0d01885d95b",NewsObject.class);
 // Matched below example
-            return newsObject.getArticles().get(0).getTitle();
-        }
+            model.addAttribute("newsitem", newsObject.getArticles());
+            return "index";
+}
     }
 
 
