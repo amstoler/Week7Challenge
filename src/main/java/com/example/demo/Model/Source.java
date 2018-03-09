@@ -6,6 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Source {
     private String id;
 
+    public Source() {
+    }
+
     public String getId() {
         return this.id;
     }

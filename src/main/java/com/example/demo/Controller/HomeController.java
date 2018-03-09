@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Model.AppUser;
 import com.example.demo.Model.Article;
+import com.example.demo.Model.NewsObject;
 import com.example.demo.Repositories.AppRoleRepository;
 import com.example.demo.Repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +54,15 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @Controller
-    public class HomeController {
-        @RequestMapping("/")
-        public @ResponseBody String showIndex(){
-            RestTemplate restTemplate = new RestTemplate();
 
-            Article article = restTemplate.getForObject("http://gturnquist-quoters.cfapps.io/api/random",Quote.class);
+        @RequestMapping("/test")
+        public @ResponseBody String showIndex(){
+        RestTemplate restTemplate = new RestTemplate();
+
+            NewsObject newsObject = restTemplate.getForObject(
+                    "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9e829714c9984782a328e0d01885d95b",NewsObject.class);
 // Matched below example
-            return article.getRootObject().getArticles();
+            return newsObject.getArticles().get(0).getTitle();
         }
     }
 
@@ -154,5 +155,5 @@ public class HomeController {
     }*/
 
 
-}
+
 

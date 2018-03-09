@@ -5,10 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RootObject {
+public class NewsObject {
     private String status;
 
-    public RootObject() {
+    public NewsObject() {
+        ArrayList<Article> articles = new ArrayList<Article>();
     }
 
     public String getStatus() { return this.status; }

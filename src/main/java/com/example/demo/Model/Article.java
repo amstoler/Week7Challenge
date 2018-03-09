@@ -9,6 +9,8 @@ public class Article {
 
     private Source source;
 
+    public Article() { this.source = new Source();}
+
     public Source getSource() {
         return this.source;
     }
@@ -74,6 +76,5 @@ public class Article {
     }
 
     public void setPublishedAt(Date publishedAt) {
-        this.publishedAt =
-    }
+        this.publishedAt = publishedAt;}
 }
