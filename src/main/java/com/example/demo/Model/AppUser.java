@@ -1,6 +1,7 @@
 package com.example.demo.Model;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,12 +35,18 @@ public class AppUser {
     //This needs to be instantiated in the construtor so you can use it to add and remove individual roles
     private Set<AppRole> roles;
 
+    @ManyToMany
+    private Collection<Profile> profiles;
+
+
 
 
     public AppUser() {
         this.roles = new HashSet<>();
-       // this.items = new HashSet();
+        this.profiles=new HashSet<>();
+
     }
+
 
     public AppUser(String email, String password, String firstName, String lastName, String username) {
         this.email = email;

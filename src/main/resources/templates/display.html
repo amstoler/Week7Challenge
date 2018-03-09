@@ -47,9 +47,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-sm-6">
-              <!--  ***************************************************************8-->
-                    <h2>News List</h2>
-
+                    <!--  ***************************************************************8-->
                     <div th:each="article: ${article}">
 
                         <span  th:text="${article.author}"></span><br/>
@@ -63,6 +61,7 @@
 
                         <a th:href="@{/selectcategory}">Select Category</a>
                     </div>
+                </div>
                     <!--  ***************************************************************8-->
                 </div>
 

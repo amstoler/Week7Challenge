@@ -47,22 +47,31 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-sm-6">
-              <!--  ***************************************************************8-->
-                    <h2>News List</h2>
+                    <!--  ***************************************************************8-->
+                    <form  th:action="@{/{category}}"  th:object="${profile}" method="post">
 
-                    <div th:each="article: ${article}">
-
-                        <span  th:text="${article.author}"></span><br/>
-                        <span  th:text="${article.title}"></span><br/>
-                        <span th:text="${article.description}"></span><br/>
-                        <span th:text="${article.url}"></span><br/>
-                        <span><img th:src="${article.urlToImage}" width="150" height="150"></span><br/>
-                        <span  th:text="${article.publishedAt}"></span>
+                        <h4>Topics</h4>
+                        <input type="hidden" th:field="*{id}"/>
 
 
+                        <h4>Select Topic</h4>
+                        <select th:field="*{category}" name="category">
+                            <option value="Business"> business </option>
+                            <option value="Entertainment">entertainment </option>
+                            <option value="Health">health</option>
+                            <option value="Science"> science </option>
+                            <option value="Sports">sports </option>
+                            <option value="Technology">technology </option>
+                        </select>
 
-                        <a th:href="@{/selectcategory}">Select Category</a>
-                    </div>
+
+
+
+
+                        <fieldset>
+                            <button type="submit" id="contact-submit"  data-submit="...Sending">Submit</button>
+                        </fieldset>
+                    </form>
                     <!--  ***************************************************************8-->
                 </div>
 

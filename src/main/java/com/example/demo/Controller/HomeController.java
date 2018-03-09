@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.Model.AppUser;
 import com.example.demo.Model.Article;
 import com.example.demo.Model.NewsObject;
+import com.example.demo.Model.Profile;
 import com.example.demo.Repositories.AppRoleRepository;
 import com.example.demo.Repositories.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +25,25 @@ public class HomeController {
     @Autowired
     AppUserRepository appUserRepository;
 
-    @GetMapping(value = {"/", "/home"})
-    public  String showHome() {return "index";}
+//    @GetMapping(value = {"/", "/home"})
+//    public String showHome() {
+//        return "index";
+//    }
 
     @PostMapping("/login")
-    public String login()
-    {
+    public String login() {
         return "/login";
     }
 
     @GetMapping("/register")
-    public String registerUser(Model model)
-    {
-        model.addAttribute("newuser",new AppUser());
+    public String registerUser(Model model) {
+        model.addAttribute("newuser", new AppUser());
         return "register";
     }
 
     @PostMapping("/register")
-    public String saveUser(@Valid @ModelAttribute("newuser") AppUser appUser, BindingResult result, HttpServletRequest request)
-    {
-        if(result.hasErrors())
-        {
+    public String saveUser(@Valid @ModelAttribute("newuser") AppUser appUser, BindingResult result, HttpServletRequest request) {
+        if (result.hasErrors()) {
             return "register";
         }
 
@@ -55,22 +54,23 @@ public class HomeController {
     }
 
 
-        @RequestMapping("/business")
-        public String showbusiness(Model model){
-        RestTemplate restTemplate = new RestTemplate();
-
-            NewsObject newsObject = restTemplate.getForObject(
-                    "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9e829714c9984782a328e0d01885d95b",NewsObject.class);
-
-            model.addAttribute("newsitem", newsObject.getArticles());
-            return "index";
-}
-    @RequestMapping("/sports")
-    public String showsports(Model model){
+    @RequestMapping("/business")
+    public String showbusiness(Model model) {
         RestTemplate restTemplate = new RestTemplate();
 
         NewsObject newsObject = restTemplate.getForObject(
-                "https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=9e829714c9984782a328e0d01885d95b",NewsObject.class);
+                "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9e829714c9984782a328e0d01885d95b", NewsObject.class);
+
+        model.addAttribute("newsitem", newsObject.getArticles());
+        return "index";
+    }
+
+    @RequestMapping("/sports")
+    public String showsports(Model model) {
+        RestTemplate restTemplate = new RestTemplate();
+
+        NewsObject newsObject = restTemplate.getForObject(
+                "https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=9e829714c9984782a328e0d01885d95b", NewsObject.class);
 
         model.addAttribute("newsitem", newsObject.getArticles());
         return "index";
@@ -101,7 +101,36 @@ public class HomeController {
 
     }
 
+    @GetMapping("/selectcategory")
+    public String selectCategory(Model model){
+        model.addAttribute("profile",new Profile());
+        return "selectcategory";
+
     }
+    @PostMapping("/{category}")
+    public String PoliticsNews(HttpServletRequest request, @Valid @ModelAttribute("newsApi") NewsObject newsObject, Model model){
+        String category = request.getParameter("category");
+        RestTemplate restTemplate = new RestTemplate();
+        newsObject = restTemplate.getForObject("https://newsapi.org/v2/top-headlines?country=us&category="+category+"&apiKey=9e829714c9984782a328e0d01885d95b", NewsObject.class);
+        model.addAttribute("article",newsObject.getArticles());
+
+        return "display";
+    }
+    @RequestMapping("/")
+    public String Headlines( @Valid @ModelAttribute("newsApi") NewsObject newsObject, Model model){
+        RestTemplate restTemplate = new RestTemplate();
+        newsObject = restTemplate.getForObject("https://newsapi.org/v2/top-headlines?country=us&apiKey=9e829714c9984782a328e0d01885d95b", NewsObject.class);
+        model.addAttribute("article",newsObject.getArticles());
+
+        return "index";
+    }
+
+
+
+  //  https://newsapi.org/v2/top-headlines?country=us&apiKey=9e829714c9984782a328e0d01885d95b
+
+
+}
 
 
       /*@GetMapping("/addNewsItem")
